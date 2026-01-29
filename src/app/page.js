@@ -6,6 +6,15 @@ export default function Homepage(){
   return(
     <>
     <Header/>
+    <body>
+      <p>Text about birds & birdwatching</p>
+      <button>
+        Might need to make this button into a link.
+        Explore the birds sighted around the world!
+        if the user is logged in they are taken to the posts page
+        if they are not logged in they are redirected to sign-up page
+      </button>
+    </body>
     </>
   )
 }

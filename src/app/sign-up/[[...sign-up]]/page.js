@@ -5,15 +5,14 @@
 // Insert users data into users table so we can render it into the profile page
 // can also redirect user to the form after signup instead of on the same page
 
-export default function SignUp(){
+import {SignUp} from "@clerk/nextjs"
+
+export default function SignUpPage(){
     return(
         <>
-        {/* Clerk Component */}
-        <form>
-            <input type="text" name="nickname"/>
-            <textarea type="text" name="bio"/>
-            <input/>
-        </form>
+        <SignUp/>
         </>
     )
 }
+
+// Source: https://clerk.com/docs/nextjs/guides/development/custom-sign-up-page

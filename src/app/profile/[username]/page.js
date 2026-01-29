@@ -9,15 +9,20 @@
 // Look at resource links Manny posted in his 
 // use currentUser() to access info about current user from Clerk
 
+import UserBio from "@/components/UserBio"
 
 
 export default function ProfilePage(){
 
-    // db queries to GET data from the table
+
     return(
         <>
         <h1>User's Info</h1>
+        <UserBio/>
+
+
         <h1>User's Posts</h1>
+        {/* use .map to render all posts WHERE user_id = the logged in user */}
         </>
     )
 }

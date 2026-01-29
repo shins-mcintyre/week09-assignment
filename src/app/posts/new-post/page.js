@@ -5,7 +5,10 @@ export default function NewPost(){
     return(
         <>
         <h1>Create a new post</h1>
-        <form></form>
+        <form>
+            {/* This form will capture bird type, date of sighting, location of sighting, comments, and image source */}
+            {/* This data will be POSTED to the bird_posts table and will also add the user_id of the current user who is logged in into birdwatcher_id column */}
+        </form>
         </>
     )
 }
