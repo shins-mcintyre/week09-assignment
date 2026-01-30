@@ -26,10 +26,11 @@ export default function NewPostPage(){
 
          db.query(`
             INSERT INTO bird_posts 
-            (birdwatcher_id, bird_type, date, location, comment, image) VALUES ($1, $2, $3, $4, $5, $6)
+            (birdwatcher_id, username, bird_type, date, location, comment, img_src) VALUES ($1, $2, $3, $4, $5, $6, $7)
             `,
             [
                 userId,
+                user?.username,
                 formValues.birdType,    
                 formValues.date,
                 formValues.location,
