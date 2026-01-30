@@ -11,22 +11,34 @@
 
 import UserBio from "@/components/UserBio"
 import MyPosts from "@/components/MyPosts"
+import {db} from "@/utils/dbConnection"
+import Timeline from "@/components/Timeline"
+import { auth } from "@clerk/nextjs/server"
 
 
-export default function ProfilePage(){
+export default async function ProfilePage({params}){
 
+    // const {username} = params
+    const {userId} = await auth()
+
+    const posts = (
+        await db.query(
+            `SELECT * FROM bird_posts WHERE birdwatcher_id=$1 ORDER BY date DESC`,
+            [userId]
+        )
+    ).rows
 
     return(
         <>
-        <h1>User's Info</h1>
         <UserBio/>
 
-
-        <h1>User's Posts</h1>
+        {/* <h1>{username}'s sightings</h1> */}
+        <Timeline posts={posts} showActions />
         <MyPosts/>
         </>
     )
 }
+
 
 
 

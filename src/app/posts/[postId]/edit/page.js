@@ -6,20 +6,30 @@ import { redirect } from "next/navigation"
 import { DevBundlerService } from "next/dist/server/lib/dev-bundler-service"
 import {db} from "@/utils/dbConnection"
 import Link from "next/link"
+import {currentUser} from "@clerk/nextjs/server"
 
 export default async function EditPage({params}){
 
+    
     // desctructure
-    const {birdpostId} = await params;
+    const {postId} = await params;
+
 
     // get current birdpost data
     const query = await db.query(
         `SELECT * FROM bird_posts WHERE id=$1`,
-        [birdpostId]
+        [postId]
     )
 
-    // wrangle data to reach the object in the array
+    // if (query.rows.length === 0){
+    //     return<p>Post not found</p>
+    // }
+
+        // wrangle data to reach the object in the array
     const data = query.rows[0]
+    console.log(data)
+
+    const user = await currentUser();
 
     async function handleUpdate(formData){
         // update logic
@@ -27,7 +37,7 @@ export default async function EditPage({params}){
 
         // input values
         const formValues={
-            birdType: formData.get("birdType"),
+            birdType: formData.get("bird-type"),
             date: formData.get("date"),
             location: formData.get("location"),
             comment: formData.get("comment"),
@@ -40,22 +50,26 @@ export default async function EditPage({params}){
             date=$2,
             location=$3,
             comment=$4,
-            imgSrc=$5`,
+            imgSrc=$5
+            WHERE id=$6`,
             [
                 formValues.birdType,
                 formValues.date,
                 formValues.location,
                 formValues.comment,
                 formValues.imgSrc,
-                birdpostId
+                postId
             ])
 
             // UX
-            revalidatePath(`/profile/${user?.username}`)
             revalidatePath(`/posts`)
-            revalidatePath(`/posts/${birdpostId}`)
-            redirect(`/profile/${user?.username}`)
+            revalidatePath(`/posts/${postId}`)
+            redirect(`/posts/${postId}`)
     }
+
+            const formattedDate = data.date
+            ? new Date(data.date).toISOString().split("T")[0]
+            : "";
 
     return(
         <>
@@ -72,7 +86,7 @@ export default async function EditPage({params}){
                             type="text"
                             required
                             name="bird-type"
-                            defaultValue={data.birdType}
+                            defaultValue={data.bird_type}
                             />
                     </div>
 
@@ -83,7 +97,7 @@ export default async function EditPage({params}){
                             required
                             name="image"
                             placeholder="Paste a url in here"
-                            defaultValue={data.imgSrc}
+                            defaultValue={data.img_src}
                             />
                     </div>
 
@@ -93,7 +107,7 @@ export default async function EditPage({params}){
                             type="date"
                             required
                             name="date"
-                            defaultValue={data.date}
+                            defaultValue={formattedDate}
                             />
                     </div>
 

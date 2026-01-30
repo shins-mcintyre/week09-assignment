@@ -86,9 +86,15 @@ export default async function MyPosts({searchParams}){
                 <button
                     type="submit"
                     className={birdPostStyles.deleteButton}>
-                    Delete
+                    Delete post
                 </button>
-            </form>
+                </form>
+                {/* <button
+                    type="submit"
+                    className={birdPostStyles.editButton}
+                    href={`/posts/${postId}/edit`}>
+                    Edit post</button> */}
+            
             </div> )   })}</>)    }        
 
 
