@@ -4,15 +4,26 @@ import { db } from "@/utils/dbConnection"
 import birdPostStyles from "@/styles/birdPost.module.css"
 import Link from "next/link"
 import { auth } from "@clerk/nextjs/server"
+import { revalidatePath } from "next/cache"
+import { currentUser } from "@clerk/nextjs/server"
 
 
 export default async function MyPosts({searchParams}){
 
     const {userId} = await auth()
-
+    const user = await currentUser()
 
     const birdposts = (await db.query(`SELECT * FROM bird_posts WHERE birdwatcher_id=$1`, [userId])).rows
     console.log(birdposts)
+
+    async function handleDeletePost(formData){
+        "use server"
+        const postId = formData.get("postId")
+        await db.query(
+            `DELETE FROM bird_posts WHERE id=$1`, [postId]
+        )
+        revalidatePath(`/profile/${user?.username}`)
+    }
 
     if (birdposts.length === 0){
         return (
@@ -22,11 +33,7 @@ export default async function MyPosts({searchParams}){
             </>
         )}
 
-        // const post=birdposts[0]
-
-        
-
-
+    
 //    if (searchParams.sort === "asc"){
 //     birdposts.sort(
 //       (a,b) => new Date(a.date) - new Date(b.date)
@@ -63,12 +70,6 @@ export default async function MyPosts({searchParams}){
                     alt={`Photo of a ${post.bird_type}, spotted in ${post.location} by ${post.username}`}/>
 
             <div className={birdPostStyles.postDetails}>
-                <h3>
-                    <Link href={`/profile/${post.username}`} className={birdPostStyles.userLink}>
-                    {post.username}
-                    </Link>
-                </h3>
-
                 <p>
                     <strong>Type of bird: </strong> {post.bird_type}
                 </p>
@@ -79,6 +80,15 @@ export default async function MyPosts({searchParams}){
                     <strong>Comments: </strong> {post.comment}
                 </p>
             </div>
+
+            <form action={handleDeletePost}>
+                <input type="hidden" name="postId" value={post.id}/>
+                <button
+                    type="submit"
+                    className={birdPostStyles.deleteButton}>
+                    Delete
+                </button>
+            </form>
             </div> )   })}</>)    }        
 
 
