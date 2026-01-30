@@ -2,6 +2,8 @@
 
 // - use clerk component
 
+// re-style this page via Clerk
+
 import {SignIn} from "@clerk/nextjs"
 
 export default function SignInPage(){

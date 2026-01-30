@@ -6,7 +6,7 @@ export default function Homepage(){
   return(
     <>
     <Header/>
-    <body>
+    <main>
       <p>Text about birds & birdwatching</p>
       <button>
         Might need to make this button into a link.
@@ -14,7 +14,7 @@ export default function Homepage(){
         if the user is logged in they are taken to the posts page
         if they are not logged in they are redirected to sign-up page
       </button>
-    </body>
+    </main>
     </>
   )
 }
