@@ -10,6 +10,7 @@
 // use currentUser() to access info about current user from Clerk
 
 import UserBio from "@/components/UserBio"
+import MyPosts from "@/components/MyPosts"
 
 
 export default function ProfilePage(){
@@ -22,7 +23,7 @@ export default function ProfilePage(){
 
 
         <h1>User's Posts</h1>
-        {/* use .map to render all posts WHERE user_id = the logged in user */}
+        <MyPosts/>
         </>
     )
 }
