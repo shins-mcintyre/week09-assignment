@@ -8,6 +8,8 @@ import Link from "next/link"
 import Timeline from "@/components/Timeline"
 import {auth} from "@clerk/nextjs/server"
 import {redirect} from "next/navigation"
+import Header from "@/components/Header"
+import allPostsStyles from "@/styles/allPosts.module.css"
 
 
 // NEW VERSION WITH TIMELINE COMPONENT
@@ -27,8 +29,16 @@ export default async function PostsPage(){
 
     return(
         <>
-        <h1>All sightings</h1>
+        <section className={allPostsStyles.container}>
+        <Header/>
+        <div className={allPostsStyles.postsHeader}>
+            <h2>Recent sightings</h2>
+            <Link href="/posts/new-post" className={allPostsStyles.addButton}>
+                +
+            </Link>
+        </div>
         <Timeline posts={posts}/>
+        </section>
         </>
     )
 }

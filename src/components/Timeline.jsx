@@ -3,6 +3,7 @@
 import Link from "next/link"
 import birdPostStyles from "@/styles/birdPost.module.css"
 
+
 export default function Timeline({posts, showActions=false}){
     if (!posts || posts.length === 0 ){
         return <p className={birdPostStyles.p}>No sightings yet</p>
@@ -10,6 +11,7 @@ export default function Timeline({posts, showActions=false}){
 
     return(
         <>
+        <section className={birdPostStyles.timelineContainer}>
         {posts.map((post)=>{
             const formattedDate = new Date(post.date).toLocaleDateString("en-GB", {
                 year: "numeric",
@@ -18,10 +20,11 @@ export default function Timeline({posts, showActions=false}){
             })
 
             return(
-                <div key={post.id} className={birdPostStyles.birdPost}>
+                <div key={post.id} className={birdPostStyles.postContainer}>
                     <img
                         src={post.img_src}
                         alt={`Photo of a ${post.bird_type}`}
+                        className={birdPostStyles.image}
                     />
 
                     <div className={birdPostStyles.postDetails}>
@@ -42,12 +45,12 @@ export default function Timeline({posts, showActions=false}){
 
                         {showActions &&(
                             <div className={birdPostStyles.actions}>
-                                <Link href={`/profile/${post.id}/edit`}>
+                                <Link href={`/profile/${post.id}/edit`} className={birdPostStyles.editButton}>
                                     Edit
                                 </Link>
                                 {" | "}
                                 <form action={`/posts/${post.id}/delete`} method="POST">
-                                    <button type="submit">Delete</button>
+                                    <button type="submit" className={birdPostStyles.deleteButton}>Delete</button>
                                 </form>
                             </div>
                         )}
@@ -55,6 +58,7 @@ export default function Timeline({posts, showActions=false}){
                 </div>
             )
             })}
+            </section>
         </>
     )
 }

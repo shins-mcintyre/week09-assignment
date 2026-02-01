@@ -1,0 +1,103 @@
+/* cat-post - each individual postcard  */
+.postContainer{
+  background: #f3f6f8;
+  color: var(--fontColour);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+    width: 100%;
+  max-width: 800px;
+  margin-bottom: 1.5rem;
+  
+}
+
+.postContainer:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px #1d1941;
+}
+
+.timelineContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image{
+      width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.image:hover{
+      transform: scale(1.03);
+}
+
+.postDetails{
+      display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.userLink{
+      margin-bottom: 0.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  background-color: var(--fontColour);
+  color: #f3f6f8;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.1rem;
+}
+
+.userLink:hover{
+      color: var(--fontColour);
+  background-color: transparent;
+  border: 1px solid var(--fontColour);
+}
+
+.postDetails h3{}
+
+.postDetails p{}
+
+.actions{}
+
+.editButton{
+
+}
+
+.deleteButton, .editButton{
+      align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 0.3rem 0.5rem;
+  background-color: transparent;
+  border: 1px solid var(--fontColour);
+  color: var(--fontColour);
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.deleteButton:hover, .editButton:hover{
+      background-color:var(--fontColour);
+  color: #f3f6f8;
+  transform: translateY(-1px);
+}
+
+.deleteButton:active, .editButton:hover{
+      transform: scale(0.96);
+}
