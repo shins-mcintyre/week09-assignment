@@ -16,6 +16,7 @@ import Timeline from "@/components/Timeline"
 import { auth } from "@clerk/nextjs/server"
 
 
+
 export default async function ProfilePage({params}){
 
     // const {username} = params
@@ -30,11 +31,13 @@ export default async function ProfilePage({params}){
 
     return(
         <>
+        
         <UserBio/>
 
         {/* <h1>{username}'s sightings</h1> */}
         <Timeline posts={posts} showActions />
         <MyPosts/>
+        
         </>
     )
 }

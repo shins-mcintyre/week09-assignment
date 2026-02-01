@@ -1,0 +1,88 @@
+
+
+.button{
+    background-color: transparent;
+  /* border: 1px solid #266DB6; */
+  box-sizing: border-box;
+  color: #00132C;
+  line-height: 24px;
+  padding: 16px 23px;
+  position: relative;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 40%;
+  left: 10%;
+  /* margin-top: 3rem; */
+  padding: 4rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 2;
+  
+}
+    
+.button:hover,
+.button:active {
+  outline: 0;
+    color: #f5fbfd;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.button:hover {
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.button:before {
+  background-color: #f5fbfd;
+  content: "";
+  height: calc(100% + 3px);
+  position: absolute;
+  right: -7px;
+  top: -9px;
+  transition: background-color 300ms ease-in;
+  width: 100%;
+  z-index: -1;
+}
+
+.button:hover:before {
+  background-color: #0a4236bd;
+}
+
+@media (min-width: 768px) {
+  .button-51 {
+    padding: 16px 32px;
+  }
+}
+
+/* button CSS source: https://getcssscan.com/css-buttons-examples */
+
+.homepageContent{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.homepageMain{
+    font-family: var(--contentFont);
+
+}
+
+.quote{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+.info{
+    margin-left: 10%;
+    margin-top: 5rem;
+    margin-bottom: 8rem;
+    font-size: 2rem;
+    width: 50%;
+    font-weight: 700;
+}

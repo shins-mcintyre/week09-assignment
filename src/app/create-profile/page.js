@@ -5,6 +5,7 @@ import {redirect} from "next/navigation"
 import formStyles from "@/styles/form.module.css"
 import { currentUser } from "@clerk/nextjs/server"
 import { auth } from "@clerk/nextjs/server"
+import Header from "@/components/Header"
 
 export default function CreateProfilePage(){
 
@@ -47,6 +48,7 @@ export default function CreateProfilePage(){
     }
     return(
         <>
+        <Header/>
         <section className="form-page">
             <div className="form-wrapper">
                 <section className="form-title">

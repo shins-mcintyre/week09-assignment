@@ -38,7 +38,7 @@ export default function Header() {
         </div>
       </div>
 
-      <h1 className={headerStyles.title}>EYE SPY BIRD</h1>
+      <h1 className={headerStyles.title}>tweeter</h1>
       </div>
     </>
   )

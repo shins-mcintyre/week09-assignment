@@ -6,10 +6,19 @@ import { db } from "@/utils/dbConnection"
 import birdPostStyles from "@/styles/birdPost.module.css"
 import Link from "next/link"
 import Timeline from "@/components/Timeline"
+import {auth} from "@clerk/nextjs/server"
+import {redirect} from "next/navigation"
 
 
 // NEW VERSION WITH TIMELINE COMPONENT
 export default async function PostsPage(){
+
+    const {userId} = await auth()
+    if (!userId){
+        redirect("/sign-in")
+    }
+
+
     const posts = (
         await db.query(
             `SELECT * FROM bird_posts ORDER BY date DESC`
