@@ -18,6 +18,7 @@ import profileStyles from "@/styles/profile.module.css"
 import Link from "next/link"
 import Header from "@/components/Header"
 import { currentUser } from "@clerk/nextjs/server"
+import ErrorPage from "./error"
 
 
 
@@ -44,7 +45,7 @@ export default async function ProfilePage({params}){
     )
 
     if (owner.rows.length === 0){
-        return <p>User not found</p>
+        return ErrorPage()
     }
 
     const profileOwner = owner.rows[0]
@@ -57,6 +58,10 @@ export default async function ProfilePage({params}){
 
     // check if own profile
     const isOwnProfile = userId === profileOwner.user_id
+
+    // throw new Error(
+    //     "There is an error finding this bird nerd's profile"
+    // )
 
     return(
         <>
