@@ -14,30 +14,75 @@ import MyPosts from "@/components/MyPosts"
 import {db} from "@/utils/dbConnection"
 import Timeline from "@/components/Timeline"
 import { auth } from "@clerk/nextjs/server"
+import profileStyles from "@/styles/profile.module.css"
+import Link from "next/link"
+import Header from "@/components/Header"
+import { currentUser } from "@clerk/nextjs/server"
 
 
 
 export default async function ProfilePage({params}){
 
+    console.log("PARAMS:", params)
+
     // const {username} = params
     const {userId} = await auth()
+    const user = await currentUser()
+    const {username} = await params
 
-    const posts = (
-        await db.query(
-            `SELECT * FROM bird_posts WHERE birdwatcher_id=$1 ORDER BY date DESC`,
-            [userId]
-        )
-    ).rows
+    // currently this only shows my own posts and profile, not those belonging to the actual username in the link
+    // const posts = (
+    //     await db.query(
+    //         `SELECT * FROM bird_posts WHERE birdwatcher_id=$1 ORDER BY date DESC`,
+    //         [userId]
+    //     )
+    // ).rows
+
+    // get profile owner from db
+    const owner=await db.query(
+        `SELECT * FROM birdwatchers WHERE username=$1`, [username]
+    )
+
+    if (owner.rows.length === 0){
+        return <p>User not found</p>
+    }
+
+    const profileOwner = owner.rows[0]
+
+    // get posts for that profile owner
+    const posts = (await db.query(
+        `SELECT * FROM bird_posts WHERE birdwatcher_id=$1
+        ORDER BY date DESC`, [profileOwner.user_id]
+    )).rows
+
+    // check if own profile
+    const isOwnProfile = userId === profileOwner.user_id
 
     return(
         <>
-        
-        <UserBio/>
+        <section className={profileStyles.page}>
+            <div className={profileStyles.bio}>
+                <UserBio username={username}/>
+            </div>
 
-        {/* <h1>{username}'s sightings</h1> */}
-        <Timeline posts={posts} showActions />
-        <MyPosts/>
+            <div className={profileStyles.postsHeader}>
+                <h2>
+                    {isOwnProfile
+                    ? "My posts" : `${profileOwner.username}'s posts`}
+                </h2>
+
+                {isOwnProfile && (
+                    <Link href="/posts/new-post" className={profileStyles.addButton}>
+                     +
+                    </Link>
+                )}
+
+            </div>
         
+            <Timeline posts={posts} showActions={isOwnProfile} />
+            {/* <p>My Posts component:</p>
+            <MyPosts/> */}
+        </section>
         </>
     )
 }

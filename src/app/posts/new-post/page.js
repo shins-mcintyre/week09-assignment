@@ -47,14 +47,14 @@ export default function NewPostPage(){
     }
     return(
         <>
-        <section className="form-page">
-            <div className="form-wrapper">
-                <section className="form-title">
-                    <h2 className="h2">Share your bird sightings here...</h2>
+        <section className={formStyles.formPage}>
+            <div className={formStyles.formWrapper}>
+                <section className={formStyles.formTitle}>
+                    <h2 className={formStyles.h2}>Share your bird sightings here...</h2>
                 </section>
 
-                <form className="form" action={handleSavePost}>
-                    <div className="form-row">
+                <form className={formStyles.form} action={handleSavePost}>
+                    <div className={formStyles.formRow}>
                         <label htmlFor="bird-type">What type of bird did you spot?</label>
                         <input
                             type="text"
@@ -63,7 +63,7 @@ export default function NewPostPage(){
                             />
                     </div>
 
-                    <div className="form-row">
+                    <div className={formStyles.formRow}>
                         <label htmlFor="image">Add a photo of the bird: </label>
                         <input
                             type="url"
@@ -73,7 +73,7 @@ export default function NewPostPage(){
                             />
                     </div>
 
-                    <div className="form-row">
+                    <div className={formStyles.formRow}>
                         <label htmlFor="date">What date was the sighting?</label>
                         <input
                             type="date"
@@ -82,7 +82,7 @@ export default function NewPostPage(){
                             />
                     </div>
 
-                    <div className="form-row">
+                    <div className={formStyles.formRow}>
                         <label htmlFor="location">Where was the sighting?</label>
                         <input
                             type="text"
@@ -91,7 +91,7 @@ export default function NewPostPage(){
                             />
                     </div>
 
-                    <div className="form-row">
+                    <div className={formStyles.formRow}>
                         <label htmlFor="comment">Add some more information: </label>
                         <input
                             type="text"
@@ -100,7 +100,7 @@ export default function NewPostPage(){
                             />
                     </div>
 
-                    <button type="submit">Share post</button>
+                    <button className={formStyles.button} type="submit">Share post</button>
           
             
             {/* the info will be POSTED into the birdwatchers table, using the user_id of the user who is logged in to link with the db so it is added into the correct row */}

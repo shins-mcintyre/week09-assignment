@@ -1,3 +1,4 @@
+// create a profile form
 
 import {db} from "@/utils/dbConnection.js"
 import { revalidatePath } from "next/cache"
@@ -49,14 +50,14 @@ export default function CreateProfilePage(){
     return(
         <>
         <Header/>
-        <section className="form-page">
-            <div className="form-wrapper">
-                <section className="form-title">
-                    <h2 className="h2">Tell us about yourself...</h2>
+        <section className={formStyles.formPage}>
+            <div className={formStyles.formWrapper}>
+                <section className={formStyles.formTitle}>
+                    <h2 className={formStyles.h2}>Tell us about yourself...</h2>
                 </section>
 
-                <form className="form" action={handleSaveProfile}>
-                    <div className="form-row">
+                <form className={formStyles.form} action={handleSaveProfile}>
+                    <div className={formStyles.formRow}>
                         <label htmlFor="home-location">Where do you live?</label>
                         <input
                             type="text"
@@ -65,7 +66,7 @@ export default function CreateProfilePage(){
                             />
                     </div>
 
-                    <div className="form-row">
+                    <div className={formStyles.formRow}>
                         <label htmlFor="profile-photo">Add a profile photo:</label>
                         <input
                             type="url"
@@ -75,7 +76,7 @@ export default function CreateProfilePage(){
                             />
                     </div>
 
-                    <div className="form-row">
+                    <div className={formStyles.formRow}>
                         <label htmlFor="fav-bird">We know it's hard to choose but... what is your favourite bird?</label>
                         <input
                             type="text"
@@ -84,7 +85,7 @@ export default function CreateProfilePage(){
                             />
                     </div>
 
-                    <div className="form-row">
+                    <div className={formStyles.formRow}>
                         <label htmlFor="bio">Tell us more about you and your birdwatching...</label>
                         <input
                             type="text"
@@ -93,7 +94,7 @@ export default function CreateProfilePage(){
                             />
                     </div>
 
-                    <button type="submit">Add to profile</button>
+                    <button type="submit" className={formStyles.button}>Add to profile</button>
           
             
             {/* the info will be POSTED into the birdwatchers table, using the user_id of the user who is logged in to link with the db so it is added into the correct row */}

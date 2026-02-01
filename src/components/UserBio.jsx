@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache"
 import bioStyles from "@/styles/bio.module.css"
 import { auth } from "@clerk/nextjs/server"
 
-export default async function UserBio(){
+export default async function UserBio({username}){
 
     const {userId} = await auth()
 
@@ -13,8 +13,13 @@ export default async function UserBio(){
     }
 
     // db queries to GET data from the table - get data from birdwatchers table and render into user's info
+    // this way shows own bio on all pages
+    // const result = await db.query(
+    //     `SELECT * FROM birdwatchers WHERE user_id= $1`, [userId])
+
+    // try update bio based on whose profile you are on
     const result = await db.query(
-        `SELECT * FROM birdwatchers WHERE user_id= $1`, [userId])
+        `SELECT * FROM birdwatchers WHERE username= $1`, [username])
 
         const userBio = result.rows[0]
 
@@ -24,14 +29,18 @@ export default async function UserBio(){
     
     return(
         <>
-        <h1>User Bio</h1>
-        <p>{userBio.username}</p>
-        <p>Favourite bird: {userBio.fav_bird}</p>
-        <p>Lives in: {userBio.home_location}</p>
-        <p>{userBio.bio}</p>
-        <img 
-            src={userBio.profile_photo} 
-            alt={`Profile photo of ${userBio.username}`}/>
+        <section className={bioStyles.container}>
+            <img 
+                src={userBio.profile_photo} 
+                alt={`Profile photo of ${userBio.username}`}
+                className={bioStyles.image}/>
+            <div className={bioStyles.info}>
+                <p className={bioStyles.username}>{userBio.username}</p>
+                <p className={bioStyles.p}>Favourite bird: {userBio.fav_bird}</p>
+                <p className={bioStyles.p}>Lives in: {userBio.home_location}</p>
+                <p className={bioStyles.p}>{userBio.bio}</p>
+            </div>
+        </section>
         </>
     )
 }
