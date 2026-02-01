@@ -45,7 +45,7 @@ export default function Timeline({posts, showActions=false}){
 
                         {showActions &&(
                             <div className={birdPostStyles.actions}>
-                                <Link href={`/profile/${post.id}/edit`} className={birdPostStyles.editButton}>
+                                <Link href={`/posts/${post.id}/edit`} className={birdPostStyles.editButton}>
                                     Edit
                                 </Link>
                                 {" | "}
