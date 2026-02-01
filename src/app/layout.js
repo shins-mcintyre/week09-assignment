@@ -1,5 +1,8 @@
 import { Geist, Geist_Mono, Cabin_Sketch, Quicksand } from "next/font/google";
 import "./globals.css";
+import NavMenu from "@/components/NavMenu";
+import { currentUser } from "@clerk/nextjs/server";
+
 
 
 // clerk
@@ -51,14 +54,23 @@ export const metadata = {
 //   );
 // }
 
-export default function RootLayout({children}){
- return (
+export default async function RootLayout({children}){
+
+  const user = await currentUser()
+ 
+  return (
     <ClerkProvider
       signUpForceRedirectUrl="/create-profile"
       signInForceRedirectUrl="/posts">
       <html lang="en">
         <body className={`${cabinSketch.variable} ${quicksand.variable} antialiased bg-sky-500`}>
           <header className="flex justify-end items-center p-4 gap-4 h-16 ">
+            <SignedIn>
+              {/* RADIX MENU */}
+              <NavMenu username={user?.username}/>
+              <UserButton/>
+            </SignedIn>
+
             <SignedOut>
               <SignInButton />
               <SignUpButton>
@@ -67,9 +79,7 @@ export default function RootLayout({children}){
                 </button>
               </SignUpButton>
             </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
+
           </header>
           {children}
         </body>

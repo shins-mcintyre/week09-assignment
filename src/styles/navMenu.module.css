@@ -1,0 +1,25 @@
+.trigger {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.content {
+  background: white;
+  border-radius: 8px;
+  padding: 8px;
+  min-width: 160px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.item:hover {
+  background: #f0f4ff;
+}
